@@ -69,12 +69,11 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 
             process.ErrorDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrWhiteSpace(args.Data))
+                if (args.Data != null)
                 {
                     errorList.Add(args.Data);
 
                     if (!showDebug) { return; }
-
 
                     UnityEngine.Debug.LogError(args.Data);
                 }
@@ -86,12 +85,11 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 
             process.OutputDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
+                if (args.Data != null)
                 {
                     outputList.Add(args.Data);
 
                     if (!showDebug) { return; }
-
 
                     UnityEngine.Debug.Log(args.Data);
                 }
