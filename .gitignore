@@ -59,8 +59,8 @@ obj/
 # Project Specific List #
 # ===================== #
 artifacts/
-Assets/ThirdParty/
-Assets/ThirdParty.meta
-Assets/TextMesh Pro.meta
-Assets/TextMesh Pro/
+ThirdParty/
+ThirdParty.meta
+TextMesh Pro.meta
+TextMesh Pro/
 --Version/
