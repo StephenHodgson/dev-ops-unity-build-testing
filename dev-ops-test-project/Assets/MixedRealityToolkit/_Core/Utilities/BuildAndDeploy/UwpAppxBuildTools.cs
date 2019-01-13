@@ -53,13 +53,7 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
                 Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
             }
 
-            Debug.Log(@"
-##########################################################################################################################################################
-
-Starting Unity Appx Build...
-
-##########################################################################################################################################################
-");
+            Debug.Log("Starting Unity Appx Build...");
 
             IsBuilding = true;
             string slnFilename = Path.Combine(buildDirectory, $"{PlayerSettings.productName}.sln");

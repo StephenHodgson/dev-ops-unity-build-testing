@@ -106,8 +106,6 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
 
             #endregion Gather Build Data
 
-            EditorAssemblyReloadManager.LockReloadAssemblies = true;
-
             BuildReport buildReport = UnityPlayerBuildTools.BuildUnityPlayer(buildInfo);
 
             bool success = buildReport != null && buildReport.summary.result == BuildResult.Succeeded;
@@ -122,9 +120,7 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
                     buildInfo.OutputDirectory,
                     buildInfo.AutoIncrement);
             }
-
-            EditorAssemblyReloadManager.LockReloadAssemblies = false;
-
+            
             return success;
         }
     }
