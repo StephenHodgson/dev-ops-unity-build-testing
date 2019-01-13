@@ -97,9 +97,9 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
                         buildInfo.BuildTarget,
                         buildInfo.BuildOptions);
             }
-            catch
+            catch (Exception e)
             {
-                // ignored bc unity will catch it for us and write it to the console.
+                Debug.LogError($"{e.Message}\n{e.StackTrace}");
             }
 
             PlayerSettings.colorSpace = oldColorSpace;
@@ -119,20 +119,28 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
         {
             // We don't need stack traces on all our logs. Makes things a lot easier to read.
             Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+            Debug.Log($"Starting command line build for {EditorUserBuildSettings.activeBuildTarget}...");
 
             bool success;
-
-            switch (EditorUserBuildSettings.activeBuildTarget)
+            try
             {
-                case BuildTarget.WSAPlayer:
-                    success = await UwpPlayerBuildTools.CommandLine_BuildUwpPlayer();
-                    break;
-                default:
-                    var buildInfo = new BuildInfo(true) as IBuildInfo;
-                    ParseBuildCommandLine(ref buildInfo);
-                    var buildResult = BuildUnityPlayer(buildInfo);
-                    success = buildResult.summary.result == BuildResult.Succeeded;
-                    break;
+                switch (EditorUserBuildSettings.activeBuildTarget)
+                {
+                    case BuildTarget.WSAPlayer:
+                        success = await UwpPlayerBuildTools.BuildPlayer(new UwpBuildInfo(true) { BuildAppx = true });
+                        break;
+                    default:
+                        var buildInfo = new BuildInfo(true) as IBuildInfo;
+                        ParseBuildCommandLine(ref buildInfo);
+                        var buildResult = BuildUnityPlayer(buildInfo);
+                        success = buildResult.summary.result == BuildResult.Succeeded;
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Build Failed!\n{e.Message}\n{e.StackTrace}");
+                success = false;
             }
 
             EditorApplication.Exit(success ? 0 : 1);

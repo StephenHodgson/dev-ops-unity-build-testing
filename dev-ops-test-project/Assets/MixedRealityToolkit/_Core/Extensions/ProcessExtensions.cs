@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.MixedReality.Toolkit.Core.Definitions.Utilities;
+using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 {
@@ -67,10 +69,18 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 
             process.ErrorDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
+                if (!string.IsNullOrWhiteSpace(args.Data))
                 {
                     errorList.Add(args.Data);
-                    if (showDebug) { UnityEngine.Debug.LogError(args.Data); }
+
+                    if (!showDebug) { return; }
+
+                    var oldStackTraceType = Application.GetStackTraceLogType(LogType.Error);
+                    // We don't want stack traces from process in player log messages.
+                    Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.None);
+
+                    UnityEngine.Debug.LogError(args.Data);
+                    Application.SetStackTraceLogType(LogType.Error, oldStackTraceType);
                 }
                 else
                 {
@@ -83,7 +93,15 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     outputList.Add(args.Data);
-                    if (showDebug) { UnityEngine.Debug.Log(args.Data); }
+
+                    if (!showDebug) { return; }
+
+                    var oldStackTraceType = Application.GetStackTraceLogType(LogType.Log);
+                    // We don't want stack traces from process in player log messages.
+                    Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+
+                    UnityEngine.Debug.Log(args.Data);
+                    Application.SetStackTraceLogType(LogType.Log, oldStackTraceType);
                 }
                 else
                 {
