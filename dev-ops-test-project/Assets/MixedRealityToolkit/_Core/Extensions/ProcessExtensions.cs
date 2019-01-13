@@ -75,12 +75,8 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 
                     if (!showDebug) { return; }
 
-                    var oldStackTraceType = Application.GetStackTraceLogType(LogType.Error);
-                    // We don't want stack traces from process in player log messages.
-                    Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.None);
 
                     UnityEngine.Debug.LogError(args.Data);
-                    Application.SetStackTraceLogType(LogType.Error, oldStackTraceType);
                 }
                 else
                 {
@@ -96,12 +92,8 @@ namespace Microsoft.MixedReality.Toolkit.Core.Extensions
 
                     if (!showDebug) { return; }
 
-                    var oldStackTraceType = Application.GetStackTraceLogType(LogType.Log);
-                    // We don't want stack traces from process in player log messages.
-                    Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
 
                     UnityEngine.Debug.Log(args.Data);
-                    Application.SetStackTraceLogType(LogType.Log, oldStackTraceType);
                 }
                 else
                 {

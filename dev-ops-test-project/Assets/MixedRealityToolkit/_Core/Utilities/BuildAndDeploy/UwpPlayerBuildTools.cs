@@ -112,7 +112,7 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
 
             bool success = buildReport != null && buildReport.summary.result == BuildResult.Succeeded;
 
-            if (buildInfo.BuildAppx)
+            if (success && buildInfo.BuildAppx)
             {
                 success &= await UwpAppxBuildTools.BuildAppxAsync(
                     PlayerSettings.productName,

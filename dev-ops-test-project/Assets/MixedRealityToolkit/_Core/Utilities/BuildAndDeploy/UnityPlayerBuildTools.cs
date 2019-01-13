@@ -143,6 +143,7 @@ namespace Microsoft.MixedReality.Toolkit.Core.Utilities.Build
                 success = false;
             }
 
+            Debug.Log($"Exiting command line build... Build success? {success}");
             EditorApplication.Exit(success ? 0 : 1);
         }
 
