@@ -16,7 +16,8 @@
           ],
           "files": [
             "**.sln",
-            "**.csproj"
+            "**.csproj",
+            "**.cs"
           ]
         }
       ],
