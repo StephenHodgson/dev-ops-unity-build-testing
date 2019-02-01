@@ -8,6 +8,7 @@ namespace Microsoft.MixedReality.Toolkit.Core.Attributes
 {
     /// <summary>
     /// From https://answers.unity.com/questions/486694/default-editor-enum-as-flags-.html
+    /// This is a test update...
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class EnumFlagsAttribute : PropertyAttribute
